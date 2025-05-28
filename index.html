@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chahine SIFESSALAM - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --neon-blue: #00f3ff;
+            --dark-blue: #0a192f;
+            --light-blue: #64ffda;
+            --accent: #ff124f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            line-height: 1.6;
+            color: #e6f1ff;
+            background-color: var(--dark-blue);
+            overflow-x: hidden;
+        }
+
+        /* Animation des particules */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .header {
+            height: 100vh;
+            background: linear-gradient(rgba(10, 25, 47, 0.8), rgba(10, 25, 47, 0.8)), 
+                       url('https://images.unsplash.com/photo-1555066931-bf19f8fd1085');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 45%, var(--neon-blue) 45%, var(--neon-blue) 55%, transparent 55%);
+            background-size: 30px 30px;
+            animation: borderAnimation 2s linear infinite;
+            opacity: 0.1;
+        }
+
+        .header-content {
+            animation: glowPulse 2s infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px var(--neon-blue),
+                         0 0 20px var(--neon-blue),
+                         0 0 30px var(--neon-blue);
+            color: white;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .header-content p {
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            color: var(--light-blue);
+            text-shadow: 0 0 5px var(--light-blue);
+        }
+
+        .section {
+            padding: 8rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .about {
+            background: rgba(10, 25, 47, 0.9);
+        }
+
+        .about p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            color: #8892b0;
+        }
+
+        .skills {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .skill-card {
+            background: rgba(2, 12, 27, 0.9);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(0, 243, 255, 0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            transition: 0.5s;
+            pointer-events: none;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+        }
+
+        .skill-card:hover::before {
+            animation: reflect 1s;
+        }
+
+        .skill-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--light-blue);
+        }
+
+        .skill-card p {
+            color: #8892b0;
+        }
+
+        .skill-card a {
+            color: var(--light-blue);
+            text-decoration: none;
+            margin-top: 1rem;
+            display: inline-block;
+            position: relative;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--light-blue);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .skill-card a:hover {
+            background: rgba(100, 255, 218, 0.1);
+        }
+
+        .contact {
+            background: #f9f9f9;
+            position: relative;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 2rem;
+            background: rgba(2, 12, 27, 0.9);
+            border-radius: 50px;
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+        }
+
+        .contact-item i {
+            color: var(--light-blue);
+        }
+
+        .contact-item a {
+            color: #e6f1ff;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: var(--light-blue);
+            text-shadow: 0 0 10px rgba(100, 255, 218, 0.3);
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 2px;
+            background: var(--light-blue);
+            box-shadow: 0 0 10px var(--light-blue);
+        }
+
+        .social-links {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            position: relative;
+        }
+
+        .social-links a {
+            color: var(--light-blue);
+            font-size: 2.5rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: rgba(2, 12, 27, 0.9);
+            border: 2px solid var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, var(--neon-blue) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .social-links a:hover::before {
+            opacity: 0.2;
+        }
+
+        .social-links a i {
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+            border-color: var(--light-blue);
+        }
+
+        .social-links a:hover i {
+            color: #fff;
+            text-shadow: 0 0 10px var(--neon-blue),
+                         0 0 20px var(--neon-blue);
+            animation: iconPulse 1.5s infinite;
+        }
+
+        .github-card {
+            background: rgba(2, 12, 27, 0.9);
+            border: 2px solid var(--neon-blue);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }        .stat-card {
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);
+        }
+
+        .stat-card i {
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover i {
+            transform: scale(1.1);
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        @keyframes glowPulse {
+            0%, 100% {
+                text-shadow: 0 0 10px var(--neon-blue),
+                             0 0 20px var(--neon-blue),
+                             0 0 30px var(--neon-blue);
+            }
+            50% {
+                text-shadow: 0 0 20px var(--neon-blue),
+                             0 0 30px var(--neon-blue),
+                             0 0 40px var(--neon-blue);
+            }
+        }
+
+        @keyframes reflect {
+            0% {
+                transform: translateX(-100%) rotate(45deg);
+            }
+            100% {
+                transform: translateX(100%) rotate(45deg);
+            }
+        }
+
+        @keyframes borderAnimation {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 30px 0;
+            }
+        }
+
+        @keyframes iconPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content h1 {
+                font-size: 3rem;
+            }
+
+            .header-content p {
+                font-size: 1.4rem;
+            }
+
+            .section {
+                padding: 4rem 1rem;
+            }
+
+            .skill-card {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js" class="particles"></div>
+    <header class="header">
+        <div class="header-content">
+            <h1>Chahine SIFESSALAM</h1>
+            <p>Développeur Web & Robotique</p>
+        </div>
+    </header>
+
+    <section class="section about">
+        <div class="container" data-aos="fade-up">
+            <h2>À Propos</h2>
+            <p>Étudiant passionné en première année de licence d'informatique, je combine mes compétences en développement web et en robotique. Champion de la coupe de France de robotique avec le lycée Jean Macé à Viry-sur-Seine, je suis constamment à la recherche de nouveaux défis techniques. Mon parcours en informatique me permet de créer des solutions innovantes en associant programmation et électronique.</p>
+        </div>
+    </section>
+
+    <section class="section achievements">
+        <div class="container">
+            <h2 data-aos="fade-up">Réalisations</h2>
+            <div class="skills">
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
+                    <h3>🏆 Coupe de France de Robotique</h3>
+                    <p>Vainqueur avec le lycée Jean Macé de Viry-sur-Seine (2022)</p>
+                </div>
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
+                    <h3>🗺️ MapMaker</h3>
+                    <p>Développement d'un outil de création de cartes interactif</p>
+                    <a href="https://github.com/Stolipeak/MapMaker/blob/main/Rapport%20MapMaker.pdf" target="_blank" style="color: #007bff; text-decoration: none; margin-top: 1rem; display: inline-block;">
+                        <i class="fas fa-external-link-alt"></i> Voir le projet
+                    </a>
+                </div>
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
+                    <h3>💻 Développement</h3>
+                    <p>Expérience en C, Python et JavaScript</p>
+                </div>
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="400">
+                    <h3>🌐 Web</h3>
+                    <p>Création de sites web modernes et responsifs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section contact">
+        <div class="container">
+            <h2 data-aos="fade-up">Contact</h2>
+            <div class="contact-info" data-aos="fade-up" data-aos-delay="100">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:sifchahine086@gmail.com">sifchahine086@gmail.com</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <a href="tel:+33767522691">07 67 52 26 91</a>
+                </div>
+            </div>
+              <div class="github-card" data-aos="fade-up" data-aos-delay="200">
+                <h3 style="color: var(--light-blue); margin-bottom: 1rem;">Mon GitHub</h3>
+                <p style="color: #8892b0; margin-bottom: 1.5rem;">Découvrez mes projets et contributions open source</p>
+                
+                <div class="github-stats" style="display: flex; justify-content: center; gap: 2rem; margin: 2rem 0;">
+                    <div class="stat-card" style="background: rgba(2, 12, 27, 0.9); padding: 1.5rem; border-radius: 10px; border: 1px solid var(--neon-blue);">
+                        <i class="fas fa-code-branch" style="color: var(--light-blue); font-size: 2rem; margin-bottom: 1rem;"></i>
+                        <p style="color: #8892b0;">Projets Open Source</p>
+                    </div>
+                    <div class="stat-card" style="background: rgba(2, 12, 27, 0.9); padding: 1.5rem; border-radius: 10px; border: 1px solid var(--neon-blue);">
+                        <i class="fas fa-robot" style="color: var(--light-blue); font-size: 2rem; margin-bottom: 1rem;"></i>
+                        <p style="color: #8892b0;">Robotique</p>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="https://github.com/Stolipeak" target="_blank" class="github-link" style="transform: scale(1.2);">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 1000,
+        once: true,
+        offset: 100
+    });
+
+    // Configuration des particules
+    particlesJS("particles-js", {
+        particles: {
+            number: {
+                value: 80,
+                density: {
+                    enable: true,
+                    value_area: 800
+                }
+            },
+            color: {
+                value: "#00f3ff"
+            },
+            shape: {
+                type: "circle"
+            },
+            opacity: {
+                value: 0.5,
+                random: false
+            },
+            size: {
+                value: 3,
+                random: true
+            },
+            line_linked: {
+                enable: true,
+                distance: 150,
+                color: "#00f3ff",
+                opacity: 0.2,
+                width: 1
+            },
+            move: {
+                enable: true,
+                speed: 2,
+                direction: "none",
+                random: false,
+                straight: false,
+                out_mode: "out",
+                bounce: false
+            }
+        },
+        interactivity: {
+            detect_on: "canvas",
+            events: {
+                onhover: {
+                    enable: true,
+                    mode: "repulse"
+                },
+                resize: true
+            }
+        },
+        retina_detect: true
+    });
+
+    // Effet de parallaxe amélioré
+    window.addEventListener('scroll', function() {
+        const header = document.querySelector('.header');
+        const scrolled = window.pageYOffset;
+        header.style.backgroundPositionY = scrolled * 0.5 + 'px';
+        
+        // Effet de parallaxe sur les particules
+        document.getElementById('particles-js').style.transform = `translateY(${scrolled * 0.3}px)`;
+    });    // Animation des cartes GitHub au survol
+    document.querySelectorAll('.stat-card').forEach(card => {
+        card.addEventListener('mouseover', () => {
+            card.querySelector('i').style.transform = 'scale(1.1) rotate(5deg)';
+        });
+        card.addEventListener('mouseout', () => {
+            card.querySelector('i').style.transform = 'scale(1) rotate(0deg)';
+        });
+    });
+
+    let snake = [
+        { x: 10, y: 10 }
+    ];
+    let food = {
+        x: Math.floor(Math.random() * tileCount),
+        y: Math.floor(Math.random() * tileCount)
+    };
+    let dx = 0;
+    let dy = 0;
+    let score = 0;
+    let gameLoop;
+
+    // Dessiner un segment du serpent avec effet néon
+    function drawSnakeSegment(x, y) {
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = '#00f3ff';
+        ctx.fillStyle = '#64ffda';
+        ctx.fillRect(x * gridSize, y * gridSize, gridSize - 2, gridSize - 2);
+        ctx.shadowBlur = 0;
+    }
+
+    // Dessiner la nourriture (icône GitHub)
+    function drawFood() {
+        ctx.fillStyle = '#00f3ff';
+        ctx.font = '15px FontAwesome';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = '#00f3ff';
+        ctx.fillText('\uf09b', food.x * gridSize + gridSize/2, food.y * gridSize + gridSize/2);
+        ctx.shadowBlur = 0;
+    }
+
+    // Algorithme A* pour trouver le chemin
+    function findPath(start, goal, snake) {
+        const openSet = new Set([JSON.stringify(start)]);
+        const cameFrom = new Map();
+        
+        const gScore = new Map();
+        gScore.set(JSON.stringify(start), 0);
+        
+        const fScore = new Map();
+        fScore.set(JSON.stringify(start), heuristic(start, goal));
+        
+        while(openSet.size > 0) {
+            let current = JSON.parse(Array.from(openSet).reduce((a, b) => 
+                (fScore.get(a) || Infinity) < (fScore.get(b) || Infinity) ? a : b
+            ));
+            
+            if(current.x === goal.x && current.y === goal.y) {
+                return reconstructPath(cameFrom, current);
+            }
+            
+            openSet.delete(JSON.stringify(current));
+            
+            getNeighbors(current).forEach(neighbor => {
+                if(isValidMove(neighbor, snake)) {
+                    const tentativeGScore = (gScore.get(JSON.stringify(current)) || 0) + 1;
+                    
+                    if(tentativeGScore < (gScore.get(JSON.stringify(neighbor)) || Infinity)) {
+                        cameFrom.set(JSON.stringify(neighbor), current);
+                        gScore.set(JSON.stringify(neighbor), tentativeGScore);
+                        fScore.set(JSON.stringify(neighbor), tentativeGScore + heuristic(neighbor, goal));
+                        openSet.add(JSON.stringify(neighbor));
+                    }
+                }
+            });
+        }
+        return null;
+    }
+
+    function heuristic(a, b) {
+        return Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
+    }
+
+    function getNeighbors(pos) {
+        return [
+            { x: pos.x, y: pos.y - 1 },
+            { x: pos.x + 1, y: pos.y },
+            { x: pos.x, y: pos.y + 1 },
+            { x: pos.x - 1, y: pos.y }
+        ];
+    }
+
+    function isValidMove(pos, snake) {
+        // Gestion des bords avec passage à travers
+        if(pos.x < 0) pos.x = tileCount - 1;
+        if(pos.x >= tileCount) pos.x = 0;
+        if(pos.y < 0) pos.y = tileCount - 1;
+        if(pos.y >= tileCount) pos.y = 0;
+        
+        // Vérifier collision avec le serpent
+        return !snake.some(segment => segment.x === pos.x && segment.y === pos.y);
+    }
+
+    function reconstructPath(cameFrom, current) {
+        const path = [current];
+        while(cameFrom.has(JSON.stringify(current))) {
+            current = cameFrom.get(JSON.stringify(current));
+            path.unshift(current);
+        }
+        return path;
+    }    function nextMove() {
+        const head = snake[0];
+        const path = findPath(head, food, snake.slice(1));
+        
+        if(path && path.length > 1) {
+            const nextPos = path[1];
+            dx = nextPos.x - head.x;
+            dy = nextPos.y - head.y;
+            
+            // Ajuster pour le passage à travers les murs
+            if(Math.abs(dx) > 1) dx = dx > 0 ? -1 : 1;
+            if(Math.abs(dy) > 1) dy = dy > 0 ? -1 : 1;
+        } else {
+            // Si pas de chemin trouvé, faire une spirale
+            const possibleMoves = getNeighbors(head)
+                .filter(pos => isValidMove(pos, snake))
+                .sort((a, b) => heuristic(a, food) - heuristic(b, food));
+            
+            if(possibleMoves.length > 0) {
+                const move = possibleMoves[0];
+                dx = move.x - head.x;
+                dy = move.y - head.y;
+            } else {
+                // Si aucun mouvement possible, essayer de suivre la queue
+                const tail = snake[snake.length - 1];
+                const pathToTail = findPath(head, tail, snake.slice(1, -1));
+                if(pathToTail && pathToTail.length > 1) {
+                    const nextPos = pathToTail[1];
+                    dx = nextPos.x - head.x;
+                    dy = nextPos.y - head.y;
+                }
+            }
+        }
+    }
+</script>
+</html>
